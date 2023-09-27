@@ -12,13 +12,15 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+    
+    - name: Display Java Home
+      run: echo "JAVA_HOME is $JAVA_HOME"
+    # - name: ssn visit app
+    #   uses: subosito/flutter-action@v2
+    #   with:
+    #     flutter-version: 3.13.5
 
-    - name: ssn visit app
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: 3.13.5
-
-    - name: Build the Flutter app
-      run: flutter build apk
+    # - name: Build the Flutter app
+    #   run: flutter build apk
 
     # Add more steps as needed for testing, deployment, etc.
