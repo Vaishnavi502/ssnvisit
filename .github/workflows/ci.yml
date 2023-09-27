@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: ssn visit app
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: 3.13.5
+
+    - name: Build the Flutter app
+      run: flutter build apk
+
+    # Add more steps as needed for testing, deployment, etc.
