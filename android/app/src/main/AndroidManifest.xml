@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ssnvisitapp">
     <application
-        android:label="ssnvisitapp"
+        android:label="google_maps_flutter"
         android:icon="@mipmap/ic_launcher">
-
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
         <!-- TODO: Add your Google Maps API key here -->
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBuB2agxSrHoLeD8Eg43I-3XgEDX43SzB4"/>
