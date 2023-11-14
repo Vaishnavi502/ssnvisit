@@ -26,7 +26,6 @@ android {
     namespace "com.example.ssnvisitapp"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -34,6 +33,7 @@ android {
 
     kotlinOptions {
         jvmTarget = '1.8'
+
     }
 
     sourceSets {
@@ -49,6 +49,7 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+
     }
 
     buildTypes {
@@ -64,4 +65,3 @@ flutter {
     source '../..'
 }
 
-dependencies {}

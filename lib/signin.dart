@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
+import 'package:ssnvisitapp/main.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -89,7 +89,7 @@ class _LoginpageState extends State<Loginpage> {
       body: Stack(
         children: [
           Image.asset(
-            'assets/bck_img.png',
+            'assets/images/bck_img.png',
             fit: BoxFit.cover,
             height: double.infinity,
             width: double.infinity,
@@ -99,40 +99,27 @@ class _LoginpageState extends State<Loginpage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  color: Theme.of(context).colorScheme.inversePrimary,
-                  padding: EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(labelText: 'Email'),
-                        onChanged: (val) {
-                          validateEmail(val);
-                        },
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (_errormsg.isEmpty) {
-                              // If there are no errors, proceed with Google Sign-In
-                              _handleGoogleSignIn();
-                            }
-                          },
-                          child: Text('Sign in with Google'),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          _errormsg,
-                          style: TextStyle(color: Colors.red),
-                        ),
-                      ),
-                    ],
+                Center(
+                  child:SizedBox(
+                    width:250,
+                    height:70,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_errormsg.isEmpty) {
+                          // If there are no errors, proceed with Google Sign-In
+                          _handleGoogleSignIn();
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(builder: (context) => Maps()),
+                          // );
+                        }
+                      },
+                      child: Text('Sign in with Google',style:TextStyle(fontSize: 24)),
+                    ),
+
                   ),
                 ),
+
               ],
             ),
           ),
@@ -147,6 +134,7 @@ class _LoginpageState extends State<Loginpage> {
 
       if (googleSignInAccount != null) {
         print('Google Sign-In Success: ${googleSignInAccount.displayName}');
+        Maps();
         // TODO: Navigate to main.dart after successful sign-in
       } else {
         print('Google Sign-In Canceled');
