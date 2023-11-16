@@ -6,6 +6,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:ssnvisitapp/navigation_screen.dart';
 
+import 'itdetails.dart';
+
 main() {
   runApp(MaterialApp(
     home: Maps(),
@@ -16,6 +18,12 @@ class Maps extends StatefulWidget {
   @override
   State<Maps> createState() => _MyAppState();
 }
+class CustomMarker {
+  final String name;
+  final LatLng position;
+
+  CustomMarker({required this.name, required this.position});
+}
 
 class _MyAppState extends State<Maps> {
   LatLng? destLocation = LatLng(12.750875, 80.197273);
@@ -23,6 +31,11 @@ class _MyAppState extends State<Maps> {
   LocationData? _currentPosition;
   final Completer<GoogleMapController> _controller = Completer();
   String? _address;
+  List<CustomMarker> staticMarkers = [
+    CustomMarker(name: 'IT Department Block', position: LatLng(12.7513923, 80.1962365)),
+    // CustomMarker(name: 'Marker 2', position: LatLng(12.7513923, 80.1962365)),
+
+  ];
 
   @override
   void initState() {
@@ -34,7 +47,7 @@ class _MyAppState extends State<Maps> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter uber'),
+        title: Text('SSN Campus'),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.navigate_next),
@@ -71,6 +84,16 @@ class _MyAppState extends State<Maps> {
             onMapCreated: (GoogleMapController controller){
               _controller.complete(controller);
             },
+            markers: Set.from(staticMarkers.map((marker) => Marker(
+              markerId: MarkerId(marker.name),
+              position: marker.position,
+              infoWindow: InfoWindow(title: marker.name),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>itDept()),
+                );
+                // print('Marker ${marker.name} clicked!');
+              },
+            ))),
           ),
           Align(
             alignment: Alignment.center,
