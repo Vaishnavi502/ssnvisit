@@ -76,6 +76,16 @@ class _itDeptState extends State<itDept>{
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
           title: Text('Department of IT',style: TextStyle(color: Colors.white)),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.web_sharp,size: 50,),
+            onPressed: () async{
+              if(!await launchLinkedIn()){
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('LinkedIn Could Not Open!')));
+              }
+            },
+          )
+        ],
       ),
       body: StreamBuilder<List<Dept>>(
             stream: readData(),
@@ -104,4 +114,9 @@ class _itDeptState extends State<itDept>{
       ),
     );
   }
+  Future<bool> launchLinkedIn() async {
+    final Uri url = Uri.parse('https://www.linkedin.com/company/procode-it-ssn/');
+    return launchUrl(url);
+  }
+
 }
