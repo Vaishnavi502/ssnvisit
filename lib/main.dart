@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geocoder2/geocoder2.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:location/location.dart';
 import 'package:ssnvisitapp/navigation_screen.dart';
-
+import 'package:ssnvisitapp/signin.dart';
 import 'itdetails.dart';
 
 main() {

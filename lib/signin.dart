@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ssnvisitapp/main.dart';
+import 'package:ssnvisitapp/src/login-api.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -33,51 +34,14 @@ class _LoginpageState extends State<Loginpage> {
     caseSensitive: true,
   );
   final GoogleSignIn googleSignIn = GoogleSignIn(
-    clientId: '389452900824-dtmkkp96ahiq049cmovptcm1sruuesit.apps.googleusercontent.com',
+    clientId: '9821617792-nci5hr8mdg2mfukupju2upmkbacp9kts.apps.googleusercontent.com',
     scopes: <String>[
       'email',
       'profile',
     ],
   );
 
-  Future<bool> isEmailAssociatedWithGoogle(String email) async {
-    final GoogleSignInAccount? googleSignInAccount =
-    await GoogleSignIn(scopes: ['email']).signInSilently();
 
-    if (googleSignInAccount != null) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  Future<void> checkValidity(String val) async {
-    if (exp.hasMatch(val)) {
-      if (await isEmailAssociatedWithGoogle(val)) {
-        setState(() {
-          _errormsg = "";
-        });
-      } else {
-        setState(() {
-          _errormsg = "Valid SSN Email ID, but please sign in with Google";
-        });
-      }
-    } else {
-      setState(() {
-        _errormsg = "Invalid SSN Email ID";
-      });
-    }
-  }
-
-  void validateEmail(String val) {
-    if (val.isEmpty) {
-      setState(() {
-        _errormsg = "Email can not be empty";
-      });
-    } else {
-      checkValidity(val);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,17 +68,11 @@ class _LoginpageState extends State<Loginpage> {
                     width:250,
                     height:70,
                     child: ElevatedButton(
-                      onPressed: () {
-                        if (_errormsg.isEmpty) {
-                          // If there are no errors, proceed with Google Sign-In
+                      onPressed: () async {
+                          // proceed with Google Sign-In
                           _handleGoogleSignIn();
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(builder: (context) => Maps()),
-                          // );
-                        }
                       },
-                      child: Text('Sign in with Google',style:TextStyle(fontSize: 24)),
+                      child: Text('Sign in with Google',style:TextStyle(fontSize: 20, fontFamily: 'Poppins',color: Colors.black45)),
                     ),
 
                   ),
@@ -130,14 +88,13 @@ class _LoginpageState extends State<Loginpage> {
 
   Future<void> _handleGoogleSignIn() async {
     try {
-      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
-
-      if (googleSignInAccount != null) {
-        print('Google Sign-In Success: ${googleSignInAccount.displayName}');
-        Maps();
-        // TODO: Navigate to main.dart after successful sign-in
+      var user = await LoginApi.login();
+      if (user != null) {
+        print('Google Sign-In Success: ${user.displayName}');
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>Maps()));
+        // Maps(); // Navigate to main.dart after successful sign-in
       } else {
-        print('Google Sign-In Canceled');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Google Sign-In Failed :(')));
       }
     } catch (error) {
       print('Google Sign-In Error: $error');
