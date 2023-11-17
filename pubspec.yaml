@@ -44,6 +44,10 @@ dependencies:
   http: ^0.13.4
   json_serializable: ^6.7.1
   geocoder2: ^1.1.2
+  cloud_firestore: ^4.13.1
+  firebase_core: ^2.22.0
+  firebase_auth: ^4.14.0
+  firebase_storage: ^11.5.1
 
 dev_dependencies:
   flutter_test:

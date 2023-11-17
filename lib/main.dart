@@ -1,17 +1,19 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:geocoder2/geocoder2.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:location/location.dart';
 import 'package:ssnvisitapp/navigation_screen.dart';
-import 'package:ssnvisitapp/signin.dart';
 import 'itdetails.dart';
 
-main() {
+void main() {
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     home: Maps(),
+    theme: ThemeData(
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+      useMaterial3: true,
+    ),
   ));
 }
 
@@ -19,6 +21,7 @@ class Maps extends StatefulWidget {
   @override
   State<Maps> createState() => _MyAppState();
 }
+
 class CustomMarker {
   final String name;
   final LatLng position;
@@ -34,8 +37,6 @@ class _MyAppState extends State<Maps> {
   String? _address;
   List<CustomMarker> staticMarkers = [
     CustomMarker(name: 'IT Department Block', position: LatLng(12.7513923, 80.1962365)),
-    // CustomMarker(name: 'Marker 2', position: LatLng(12.7513923, 80.1962365)),
-
   ];
 
   @override
@@ -48,6 +49,7 @@ class _MyAppState extends State<Maps> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blueAccent,
         title: Text('SSN Campus'),
       ),
       floatingActionButton: FloatingActionButton(
@@ -140,7 +142,6 @@ class _MyAppState extends State<Maps> {
     }
   }
 
-
   getCurrentLocation() async {
     bool _serviceEnabled;
     PermissionStatus _permissionGranted;
@@ -153,7 +154,6 @@ class _MyAppState extends State<Maps> {
     } else {
       return;
     }
-
 
     _permissionGranted = await location.hasPermission();
     if (_permissionGranted == PermissionStatus.denied) {
@@ -171,7 +171,6 @@ class _MyAppState extends State<Maps> {
         setState(() {
           destLocation = LatLng(_currentPosition!.latitude!, _currentPosition!.longitude!);
         });
-
       }
   }
 }

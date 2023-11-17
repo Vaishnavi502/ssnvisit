@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "108139679969",
+    "project_id": "ssnvisitapp",
+    "storage_bucket": "ssnvisitapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108139679969:android:a961a1bea6a921e07167a0",
+        "android_client_info": {
+          "package_name": "com.example.ssnvisitapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx4ia-zv5uQPi5VY3M_1Tn8GHOnczJ2rk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

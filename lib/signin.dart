@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ssnvisitapp/main.dart';
-import 'package:ssnvisitapp/src/login-api.dart';
+import 'package:ssnvisitapp/src/login_api.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'SSN Virtual Visit App with Flutter',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -41,12 +42,11 @@ class _LoginpageState extends State<Loginpage> {
     ],
   );
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blueAccent,
         title: Text('Login for SSN Virtual Tour'),
         centerTitle: true,
       ),
@@ -64,20 +64,18 @@ class _LoginpageState extends State<Loginpage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
-                  child:SizedBox(
-                    width:250,
-                    height:70,
+                  child: SizedBox(
+                    width: 250,
+                    height: 70,
                     child: ElevatedButton(
-                      onPressed: () async {
-                          // proceed with Google Sign-In
-                          _handleGoogleSignIn();
+                      onPressed:  () async {
+                        // proceed with Google Sign-In
+                        _handleGoogleSignIn();
                       },
                       child: Text('Sign in with Google',style:TextStyle(fontSize: 20, fontFamily: 'Poppins',color: Colors.black45)),
                     ),
-
                   ),
                 ),
-
               ],
             ),
           ),
@@ -90,9 +88,9 @@ class _LoginpageState extends State<Loginpage> {
     try {
       var user = await LoginApi.login();
       if (user != null) {
-        print('Google Sign-In Success: ${user.displayName}');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Google Sign-In Success: ${user.displayName}')));
         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>Maps()));
-        // Maps(); // Navigate to main.dart after successful sign-in
+        // TODO: Navigate to Maps screen after successful sign-in
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Google Sign-In Failed :(')));
       }
